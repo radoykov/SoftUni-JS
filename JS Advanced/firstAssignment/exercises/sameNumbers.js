@@ -4,15 +4,14 @@ function same(number) {
     let sum = 0;
 
     for (let i = 0; i < str.length; i++) {
-        let next = str[i+1];
-        let current = Number(str[i]);
-        if (str[i] != str[i + 1] && next != undefined) {
+        if (str[0] != str[i]) {
             flag = false;
         }
-        sum += current;
+        sum += Number(str[i]);
     }
+
     return `${flag}\n${sum}`;
 }
 
- console.log(same(2222222));
- console.log(same(1234));
+console.log(same(2222222));
+console.log(same(1234));

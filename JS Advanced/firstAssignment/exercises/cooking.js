@@ -1,5 +1,6 @@
-function cooking(num, oper1, oper2, oper3, oper4, oper5) {
-    num = Number(num);
+function cooking(number, oper1, oper2, oper3, oper4, oper5) {
+    let num;
+    num = Number(number);
     let a = 0;
     a = calc(oper1, num);
     a = calc(oper2, a);
