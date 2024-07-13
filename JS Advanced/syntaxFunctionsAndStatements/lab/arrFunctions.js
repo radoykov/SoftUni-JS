@@ -9,7 +9,7 @@ function array(arr) {
         str = str.concat(num);
     }
     console.log(sum1);
-    console.log(sum2.toFixed(4));
+    console.log(sum2);
     console.log(str);
 }
 

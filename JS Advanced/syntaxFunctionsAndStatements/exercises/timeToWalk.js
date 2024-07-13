@@ -7,7 +7,7 @@ function timeToWalk(steps, footprint, speedKMh) {
 
     let hours = Math.floor(time / 60 / 60).toFixed(0).padStart(2, "0");
     let min = Math.floor((time - hours * 3600) / 60).toFixed(0).padStart(2, "0");;
-    let sec = Math.floor(time - hours * 60 * 60 - min * 60).toFixed(0).padStart(2, "0");;
+    let sec = Math.Ceiling(time - hours * 60 * 60 - min * 60).toFixed(0).padStart(2, "0");;
 
     return `${hours}:${min}:${sec}`;
 }

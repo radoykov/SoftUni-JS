@@ -17,7 +17,6 @@ function addRem(arr) {
             console.log(result[i]);
         }
     }
-    console.log('---');
 }
 
 addRem(['add', 'add', 'add', 'add']);

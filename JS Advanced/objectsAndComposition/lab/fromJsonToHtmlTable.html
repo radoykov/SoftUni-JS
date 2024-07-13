@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FromJSONToHTMLTable</title>
+    <style>
+        table,
+        th {
+            border: groove;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+
+        td,
+        th {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+    </div>
+    <script>
+        function fromJSONToHTMLTable(input) {
+            // input = JSON.parse(input);
+            // const keys = Object.keys(input[0]);
+            // <tr>
+            //     for(let key of keys){
+            //         <th>key</th>
+            //     }
+            // </tr>
+
+            // for (let object of input) {
+            //     const values = Object.values(object);
+            //     <tr>
+            //         for(let value of value){
+            //             <th>key</th>
+            //         }
+            //     </tr>
+            // }
+            // <table>
+
+            // </table>
+            const dataArray = JSON.parse(input);
+
+            let tableHTML = '<table>';
+            tableHTML += '<tr>';
+            for (const key in dataArray[0]) {
+                tableHTML += `<th>${key}</th>`;
+            }
+            tableHTML += '</tr>';
+
+            dataArray.forEach((obj) => {
+                tableHTML += '<tr>';
+                for (const key in obj) { 
+                    const escapedValue = obj[key].toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    tableHTML += `<td>${escapedValue}</td>`;
+                }
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</table>';
+
+            return tableHTML;
+        }
+        window.onload = function () {
+            let container = document.getElementById('wrapper');
+            container.innerHTML = fromJSONToHTMLTable('[{"Name":"Pesho","Score":4," Grade":8},{"Name":"Gosho","Score":5," Grade":8},{"Name":"Angel","Score":5.50," Grade":10}]');
+        };
+    </script>
+</body>
+
+</html>
