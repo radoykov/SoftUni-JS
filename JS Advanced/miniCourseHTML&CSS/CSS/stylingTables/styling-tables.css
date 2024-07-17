@@ -1,0 +1,8 @@
+th {
+    background-color: aqua;
+}
+
+th, td{
+    border:1px solid lightgray;
+    padding:5xp
+}

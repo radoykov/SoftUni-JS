@@ -1,0 +1,14 @@
+.clic{
+    background-color: green;
+    color: white;
+}
+
+.email{
+    background-color: yellow;
+    color: white;
+}
+body{
+    padding: 15px;
+    border-radius: 2px;
+    
+}
