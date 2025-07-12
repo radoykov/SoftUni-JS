@@ -1,6 +1,10 @@
 import e from '../../funcCreateElement/funcCreateElement.js';
 
-export function solution() {
+window.onload = function () {
+    solution();
+};
+
+function solution() {
     document.querySelector("button").addEventListener('click', (ev) => {
         let input = ev.target.parentNode.firstElementChild;
         if (input.value.length == 0) return;
