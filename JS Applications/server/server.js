@@ -1355,8 +1355,22 @@
     			_id: "bdabf5e9-23be-40a1-9f14-9117b6702a9d"
     		}
     	},
-    	furniture: {
-    	},
+        furniture: {
+            "460777": {
+                img: "https://www.lidl-shop.nl/media/fcf868f9526b38d0b0a43cc2ace72b80.jpeg",
+                    name: "Sofa",
+                        price: "259",
+                            decFactor: "0.4"
+            
+            },
+            "49050651" : {
+                img: "https://res.cloudinary.com/maisonsdumonde/image/upload/q_auto,f_auto/w_200/img/grey-3-seater-sofa-bed-200-13-0-175521_9.jpg",
+                    name: "Wardrobe",
+                        price: "120",
+                            decFactor: "1.2"
+            }
+        
+        },
     	orders: {
     	},
     	movies: {
