@@ -26,7 +26,10 @@ async function onAdd(ev) {
 
     const response = await fetch('http://localhost:3030/data/catches', {
         method: 'post',
-        headers: { 'X-Authorization': getAuthToken() },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': getAuthToken()
+        },
         body: JSON.stringify(obj)
     });
     inputs.forEach(input => input.value = '');
@@ -105,7 +108,10 @@ async function loadAll(ev) {
 
         const response = await fetch('http://localhost:3030/data/catches/' + id, {
             method: 'put',
-            headers: { 'X-Authorization': getAuthToken() },
+            headers: {
+                'Content-Type': 'application/json'
+                , 'X-Authorization': getAuthToken()
+            },
             body: JSON.stringify(obj)
         });
         inputs.forEach(input => input.value = '');

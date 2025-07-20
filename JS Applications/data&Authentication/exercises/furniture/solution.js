@@ -52,7 +52,10 @@ async function onBuy(ev) {
     }, {});
     const response = await fetch('http://localhost:3030/data/orders', {
         method: 'post',
-        headers: { 'X-Authorization': getAuthToken() },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': getAuthToken()
+        },
         body: JSON.stringify(obj)
     });
     if (response.ok == false) {
@@ -100,7 +103,10 @@ async function onCreateFurniture(ev, form) {
 
     const response = await fetch('http://localhost:3030/data/furniture', {
         method: 'post',
-        headers: { 'X-Authorization': getAuthToken() },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': getAuthToken()
+        },
         body: JSON.stringify(obj)
     });
     if (response.ok == false) {

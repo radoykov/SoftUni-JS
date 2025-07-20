@@ -16,7 +16,7 @@ async function onSubmit(data) {
 
     const token = sessionStorage.getItem('authToken');
     if (token == null) {
-        return window.location.pathname = 'index.html';
+        return window.location.replace('http://127.0.0.1:5500/cookBookApp/lesson-03/finished/index.html');
     }
 
     try {
@@ -28,9 +28,9 @@ async function onSubmit(data) {
             },
             body
         });
-        
+
         if (response.status == 200) {
-            window.location.pathname = 'index.html';
+            window.location.replace('http://127.0.0.1:5500/cookBookApp/lesson-03/finished/index.html');
         } else {
             throw new Error(await response.json());
         }

@@ -34,7 +34,7 @@ function createRecipeCard(recipe) {
             e('div', { className: 'thumb' }, e('img', { src: recipe.img })),
             e('div', { className: 'ingredients' },
                 e('h3', {}, 'Ingredients:'),
-                e('ul', {}, recipe.ingredients.map(i => e('li', {}, i))),
+                e('ul', {}, recipe.steps.map(i => e('li', {}, i))),
             )
         ),
         e('div', { className: 'description' },
@@ -55,7 +55,7 @@ async function logout() {
     });
     if (response.status == 200) {
         sessionStorage.removeItem('authToken');
-        window.location.pathname = 'index.html';
+        window.location.replace('http://127.0.0.1:5500/cookBookApp/lesson-03/finished/index.html');
     } else {
         console.error(await response.json());
     }
