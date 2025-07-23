@@ -1,37 +1,48 @@
-const form = document.querySelector('form');
+import { changeNavLocation, setUserNav, main} from './app.js'
+import { showCatalog } from './catalog.js'
 
-form.addEventListener('submit', (ev => {
+let section;
+
+export function setupRegister(sectionForLoign) {
+    section = sectionForLoign;
+    section.querySelector('form').addEventListener('submit', onRegistration);
+}
+async function onRegistration(ev) {
     ev.preventDefault();
-    const formData = new FormData(ev.target);
-    onSubmit([...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {}));
-}));
+    const dataFromForm = new FormData(ev.target);
+    let [email, password, repass] = dataFromForm.values();
 
-async function onSubmit(data) {
-    if (data.password != data.rePass) {
-        return console.error('Passwords don\'t match');
+    if (email == '' || password == '' || repass == '') {
+        alert('Error fields must not be empty!');
+        return;
+    } if (password !== repass) {
+        alert('Error password and repass difference!');
+        return;
     }
-
-    const body = JSON.stringify({
-        email: data.email,
-        password: data.password,
-    });
-
-    try {
-        const response = await fetch('http://localhost:3030/users/register', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body
-        });
-        const data = await response.json();
-        if (response.status == 200) {
-            sessionStorage.setItem('authToken', data.accessToken);
-            window.location.pathname = 'index.html';
-        } else {
-            throw new Error(data.message);
-        }
-    } catch (err) {
-        console.error(err.message);
+    const response = await fetch('http://localhost:3030/users/register', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email,
+            password,
+            repass
+        })
     }
+    );
+    if (response.ok == false) {
+        alert('Error server not responded!');
+    }
+    const data = await response.json();
+
+    sessionStorage.setItem('authToken', data.accessToken);
+    sessionStorage.setItem('userId', data._id);
+    setUserNav();
+    showCatalog();
+    ev.target.reset();
+}
+
+export function showRegister() {
+    changeNavLocation('registerLink');
+    main.innerHTML = '';
+    main.appendChild(section);
 }

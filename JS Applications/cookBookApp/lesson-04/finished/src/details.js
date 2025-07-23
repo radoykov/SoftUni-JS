@@ -49,7 +49,7 @@ function createRecipeCard(recipe) {
     );
 
     const userId = sessionStorage.getItem('userId');
-    if (userId != null && recipe._ownerId == userId) {
+    if (sessionStorage.getItem('authToken') != null && recipe._ownerId == userId) {
         result.appendChild(e('div', { className: 'controls' },
             e('button', { onClick: () => showEdit(recipe._id) }, '\u270E Edit'),
             e('button', { onClick: onDelete }, '\u2716 Delete'),

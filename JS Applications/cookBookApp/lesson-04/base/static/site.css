@@ -68,3 +68,6 @@ a.active {
 #views {
     display: none;
 }
+.hidden {
+    display: none;
+}

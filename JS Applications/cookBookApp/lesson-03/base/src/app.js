@@ -57,7 +57,7 @@ function createCustomArticle(isExtended, recipe) {
                     e('div', { className: 'thumb' }, e('img', { src: recipe.img })),
                     e('div', { className: 'ingredients' },
                         e('h3', {}, 'Ingredients:'),
-                        e('ul', {}, recipe.steps.map(i => e('li', {}, i))),
+                        e('ul', {}, recipe.ingredients.map(i => e('li', {}, i))),
                     )
                 ),
                 e('div', { className: 'description' },
