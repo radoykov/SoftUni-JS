@@ -5,7 +5,7 @@ const api = createApi(null, null, (msg) => alert(msg));
 const endpoints = {
     RECIPE_LIST: 'data/recipes?select=' + encodeURIComponent('_id,name,img'),
     RECIPE_COUNT: 'data/recipes?count',
-    RECENT_RECIPES: 'data/recipes?select=' + encodeURIComponent('_id,name,img') + '&sortBy=' + encodeURIComponent('_createdOn desc'),
+    RECENT_RECIPES: 'data/recipes?select=' + encodeURIComponent('_id,name,img') + '&sortBy=' + encodeURIComponent('_createdOn desc') + '&pageSize=3 ',
     RECIPES: 'data/recipes',
     RECIPE_BY_ID: 'data/recipes/'
 };

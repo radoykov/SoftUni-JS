@@ -1,9 +1,10 @@
 //@ts-check
-const { chromium } = require('playwright-chromium');
-const { expect } = require('chai');
+import { chromium } from 'playwright';
+import { expect } from 'chai';
 
-const mockData = require('./mock-data.json');
-const host = 'http://localhost:3000';
+import mockData from './mock-data.json' assert { type: 'json' };
+
+const host = 'http://127.0.0.1:5500/cookBookApp/lesson-05/finished/index.html';
 const endpoints = {
     recipes: '/data/recipes?select=_id%2Cname%2Cimg',
     count: '/data/recipes?count',

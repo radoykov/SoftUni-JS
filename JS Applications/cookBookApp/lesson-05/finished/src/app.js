@@ -34,7 +34,7 @@ window.addEventListener('load', async () => {
     async function logout() {
         try {
             await apiLogout();
-            navigation.updateNav();
+            navigation.setUserNav();
             navigation.goTo('catalog');
         } catch (err) {
             alert(err.message);
