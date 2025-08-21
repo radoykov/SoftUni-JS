@@ -1,14 +1,21 @@
+import { getItemFromSessionStorage } from './api/data.js'
+import { render } from './dom.js';
+
 export function createNav(main, navbar) {
     const views = {};
     const links = {};
+    const forms = {};
 
     setupNavigation();
+    setupForms();
 
     const navigator = {
         registerView,
         goTo,
-        setUserNav
+        setUserNav,
+        registerForm
     };
+
 
     return navigator;
 
@@ -25,13 +32,12 @@ export function createNav(main, navbar) {
     }
 
     async function goTo(name, ...params) {
-        main.innerHTML = '';
         const result = await views[name](...params);
-        main.appendChild(result);
+        render(result, main);
     }
 
-    function registerView(name, section, setup, navId) {
-        const execute = setup(section, navigator);
+    function registerView(name, setup, navId) {
+        const execute = setup(navigator);
 
         views[name] = (...params) => {
             [...navbar.querySelectorAll('a')].forEach(a => a.classList.remove('active'));
@@ -46,7 +52,7 @@ export function createNav(main, navbar) {
     }
 
     function setUserNav() {
-        if (sessionStorage.getItem('userToken') != null) {
+        if (getItemFromSessionStorage('authToken') != null) {
             document.getElementById('user').style.display = 'inline-block';
             document.getElementById('guest').style.display = 'none';
         } else {
@@ -54,5 +60,22 @@ export function createNav(main, navbar) {
             document.getElementById('guest').style.display = 'inline-block';
         }
     }
-}
+    function setupForms() {
+        document.body.addEventListener('submit', onSubmit);
+    }
 
+    function registerForm(name, handler) {
+        forms[name] = handler;
+    }
+
+    function onSubmit(ev) {
+        const handler = forms[ev.target.id];
+        if (typeof handler == 'function') {
+            ev.preventDefault();
+            const formData = new FormData(ev.target);
+            const body = [...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {});
+            handler(body);
+            ev.target.reset();
+        }
+    }
+}

@@ -63,8 +63,7 @@ export function showComments(recipe, nav) {
 
         const result = await createComment(comment);
 
-        comments.unshift(result);
-        renderTemplate(comments);
+       renderTemplate(await getCommentsByRecipeId(result.recipeId));
     }
 }
 
