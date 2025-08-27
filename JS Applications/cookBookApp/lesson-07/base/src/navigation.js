@@ -1,4 +1,5 @@
 import { render } from './dom.js';
+import { getItemFromSessionStorage } from './api/data.js'
 
 
 export function createNav(main, navbar) {
@@ -6,37 +7,19 @@ export function createNav(main, navbar) {
     const links = {};
     const forms = {};
 
-    setupNavigation();
     setupForms();
+    setUserNav();
 
     const navigator = {
         registerView,
-        goTo,
         setUserNav,
         registerForm
     };
 
     return navigator;
 
-    function setupNavigation() {
-        navbar.addEventListener('click', (ev) => {
-            if (ev.target.tagName == 'A') {
-                const handlerName = links[ev.target.id];
-                if (handlerName) {
-                    ev.preventDefault();
-                    goTo(handlerName);
-                }
-            }
-        });
-    }
-
-    async function goTo(name, ...params) {
-        const result = await views[name](...params);
-        render(result, main);
-    }
-
     function registerView(name, setup, navId) {
-        const execute = setup(navigator);
+        const execute = setup();
 
         views[name] = (...params) => {
             [...navbar.querySelectorAll('a')].forEach(a => a.classList.remove('active'));
@@ -48,10 +31,12 @@ export function createNav(main, navbar) {
         if (navId) {
             links[navId] = name;
         }
+
+        return async (...params) => render(await views[name](...params), main);
     }
 
     function setUserNav() {
-        if (sessionStorage.getItem('userToken') != null) {
+        if (getItemFromSessionStorage('authToken') != null) {
             document.getElementById('user').style.display = 'inline-block';
             document.getElementById('guest').style.display = 'none';
         } else {
@@ -64,18 +49,20 @@ export function createNav(main, navbar) {
         document.body.addEventListener('submit', onSubmit);
     }
 
-    function registerForm(name, handler) {
-        forms[name] = handler;
+    function registerForm(name, handler, onSuccess) {
+        forms[name] = {
+            handler,
+            onSuccess
+        };
     }
 
     function onSubmit(ev) {
-        const handler = forms[ev.target.id];
+        const { handler, onSuccess } = forms[ev.target.id] || {};
         if (typeof handler == 'function') {
             ev.preventDefault();
             const formData = new FormData(ev.target);
             const body = [...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {});
-            handler(body);
+            handler(body, onSuccess);
         }
     }
 }
-
