@@ -1,10 +1,10 @@
 import * as api from './api.js';
 
 
-const host = 'https://parseapi.back4app.com';
+const host = 'https://parseapi.back4app.com';//back44app
 api.settings.host = host;
-api.settings.appId = 'JADnCf7O0zmGISsgCWUlbaNmKG63avRDude4Llgq';
-api.settings.apiKey = 'b9zgXLA7qEXzogRG3IT7r2GGlAWKV5gV1eMfy0ZY';
+api.settings.appId = '';
+api.settings.apiKey = '';
 
 export const login = api.login;
 export const register = api.register;
